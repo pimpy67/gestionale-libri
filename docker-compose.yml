@@ -1,0 +1,24 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: biblioteca-db
+    environment:
+      POSTGRES_DB: biblioteca
+      POSTGRES_USER: bibliotecauser
+      POSTGRES_PASSWORD: biblioteca2024
+    volumes:
+      - /opt/biblioteca/pgdata:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  app:
+    build:
+      context: ./gestionale-web
+      dockerfile: Dockerfile
+    container_name: biblioteca
+    ports:
+      - "8082:8080"
+    environment:
+      DATABASE_URL: postgresql://bibliotecauser:biblioteca2024@db:5432/biblioteca
+    depends_on:
+      - db
+    restart: unless-stopped

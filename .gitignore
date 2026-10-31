@@ -24,3 +24,9 @@ Thumbs.db
 *.exe
 *.msi
 target/
+
+# Dati locali, compilati e file di sistema
+data/
+*.class
+*.bak
+.DS_Store
